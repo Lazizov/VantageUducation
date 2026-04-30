@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Vantage Education Center - Курсы</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo_gold_new.png" alt="Vantage" class="site-logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                <span style="display: flex; flex-direction: column; line-height: 1.2;">
+                    <span style="font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; color: var(--text-primary);">Vantage</span>
+                    <span style="font-size: 0.6rem; font-weight: 500; letter-spacing: 1px; color: var(--text-secondary); text-transform: uppercase;">Education Center</span>
+                </span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
+                <li><a href="courses.html" data-i18n="nav_courses">Курсы</a></li>
+                <li><a href="index.html#contacts" data-i18n="nav_contacts">Контакты</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <!-- Language Selector -->
+                <div class="lang-selector">
+                    <button id="langBtn" class="lang-btn"><span id="currentLang">RU</span> <span class="arrow">▼</span></button>
+                    <ul class="lang-dropdown" id="langDropdown">
+                        <li data-lang="ru">Русский (RU)</li>
+                        <li data-lang="en">English (EN)</li>
+                        <li data-lang="uz">O'zbek (UZ)</li>
+                    </ul>
+                </div>
+                
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="theme-btn" aria-label="Toggle Theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
+            <li><a href="courses.html" data-i18n="nav_courses">Курсы</a></li>
+            <li><a href="index.html#contacts" data-i18n="nav_contacts">Контакты</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Header Section -->
+    <section class="hero" style="min-height: 40vh; padding: 120px 0 60px; background: var(--bg-secondary);">
+        <div class="container" style="text-align: center;">
+            <h1 data-i18n="courses_page_title" style="font-size: 3rem; margin-bottom: 20px;">Наши Учебные Программы</h1>
+            <p data-i18n="courses_page_subtitle" style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">От базового английского до подготовки к международным экзаменам.</p>
+        </div>
+    </section>
+
+    <!-- All Courses Section -->
+    <section class="features" style="background: var(--bg-primary);">
+        <div class="container">
+            <div class="features-grid">
+                
+                <!-- General English -->
+                <div class="feature-card course-card">
+                    <h3 data-i18n="course1_title">General English</h3>
+                    <p class="course-desc" data-i18n="course1_desc">Общий курс английского языка для всех уровней.</p>
+                    <ul class="course-details">
+                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="c1_level">Beginner - Advanced</span></li>
+                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="c1_age">от 12 лет</span></li>
+                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="c1_price">500,000 UZS</span></li>
+                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="c1_mat">Книга (150,000 UZS)</span></li>
+                    </ul>
+                    <button class="btn btn-primary openStudyModalBtn" style="margin-top: 15px; width: 100%;">Хочу учиться</button>
+                </div>
+                
+                <!-- IELTS Preparation -->
+                <div class="feature-card course-card">
+                    <h3 data-i18n="course2_title">IELTS Preparation</h3>
+                    <p class="course-desc" data-i18n="course2_desc">Интенсивная подготовка к международному экзамену IELTS.</p>
+                    <ul class="course-details">
+                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="c2_level">Intermediate+</span></li>
+                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="c2_age">от 15 лет</span></li>
+                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="c2_price">600,000 UZS</span></li>
+                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="c2_mat">Книга + тесты (200,000 UZS)</span></li>
+                    </ul>
+                    <button class="btn btn-primary openStudyModalBtn" style="margin-top: 15px; width: 100%;">Хочу учиться</button>
+                </div>
+
+                <!-- Kids English -->
+                <div class="feature-card course-card">
+                    <h3 data-i18n="course3_title">Kids English</h3>
+                    <p class="course-desc" data-i18n="course3_desc">Увлекательный английский для детей от 7 лет.</p>
+                    <ul class="course-details">
+                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="c3_level">Starters, Movers</span></li>
+                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="c3_age">7 - 11 лет</span></li>
+                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="c3_price">450,000 UZS</span></li>
+                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="c3_mat">Книга (150,000 UZS)</span></li>
+                    </ul>
+                    <button class="btn btn-primary openStudyModalBtn" style="margin-top: 15px; width: 100%;">Хочу учиться</button>
+                </div>
+
+                <!-- SAT -->
+                <div class="feature-card course-card">
+                    <h3 data-i18n="course_sat_title">SAT Preparation</h3>
+                    <p class="course-desc" data-i18n="course_sat_desc">Подготовка к сдаче американского экзамена SAT для поступления в топ-вузы.</p>
+                    <ul class="course-details">
+                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="csat_level">Upper-Intermediate+</span></li>
+                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="csat_age">от 14 лет</span></li>
+                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="csat_price">800,000 UZS</span></li>
+                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="csat_mat">Книга + тесты (250,000 UZS)</span></li>
+                    </ul>
+                    <button class="btn btn-primary openStudyModalBtn" style="margin-top: 15px; width: 100%;">Хочу учиться</button>
+                </div>
+
+                <!-- Pre-SAT -->
+                <div class="feature-card course-card">
+                    <h3 data-i18n="course_presat_title">Pre-SAT</h3>
+                    <p class="course-desc" data-i18n="course_presat_desc">Базовая подготовка по английскому и математике перед основным курсом SAT.</p>
+                    <ul class="course-details">
+                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="cpresat_level">Intermediate</span></li>
+                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="cpresat_age">от 13 лет</span></li>
+                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="cpresat_price">650,000 UZS</span></li>
+                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="cpresat_mat">Книга (200,000 UZS)</span></li>
+                    </ul>
+                    <button class="btn btn-primary openStudyModalBtn" style="margin-top: 15px; width: 100%;">Хочу учиться</button>
+                </div>
+
+                <!-- Maths -->
+                <div class="feature-card course-card">
+                    <h3 data-i18n="course_maths_title">Maths (на английском)</h3>
+                    <p class="course-desc" data-i18n="course_maths_desc">Изучение математики на английском языке для международных экзаменов.</p>
+                    <ul class="course-details">
+                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="cmaths_level">Pre-Intermediate+</span></li>
+                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="cmaths_age">от 12 лет</span></li>
+                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="cmaths_price">550,000 UZS</span></li>
+                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="cmaths_mat">Рабочая тетрадь (150,000 UZS)</span></li>
+                    </ul>
+                    <button class="btn btn-primary openStudyModalBtn" style="margin-top: 15px; width: 100%;">Хочу учиться</button>
+                </div>
+
+            </div>
+
+            <!-- Login button removed -->
+        </div>
+    </section>
+
+    <!-- Questions Section -->
+    <section style="padding: 60px 0; background: var(--bg-secondary); text-align: center;">
+        <div class="container">
+            <h2 style="margin-bottom: 20px;">Есть вопросы?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">Свяжитесь с нами, и мы с радостью ответим на них!</p>
+            <a href="index.html#contacts" class="btn btn-primary" style="font-size: 1.2rem; padding: 16px 32px;">Обратная связь</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="margin-bottom: 10px;">
+                    <img src="images/logo_gold_new.png" alt="Vantage" class="site-logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    <span style="display: flex; flex-direction: column; line-height: 1.2;">
+                        <span style="font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; color: var(--text-primary);">Vantage</span>
+                        <span style="font-size: 0.6rem; font-weight: 500; letter-spacing: 1px; color: var(--text-secondary); text-transform: uppercase;">Education Center</span>
+                    </span>
+                </a>
+                <p data-i18n="footer_desc">Образовательный центр, меняющий жизни через знания.</p>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_links">Ссылки</h4>
+                <ul>
+                    <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
+                    <li><a href="courses.html" data-i18n="nav_courses">Курсы</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_social">Социальные сети</h4>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/vantage_education_center/" target="_blank">Instagram</a>
+                    <a href="#">Telegram</a>
+                    <a href="#">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vantage Education Center. <span data-i18n="footer_rights">Все права защищены.</span></p>
+        </div>
+    </footer>
+
+    <!-- Study Modal -->
+    <div id="studyModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+        <div class="modal-content" style="background: var(--bg-primary); padding: 30px; border-radius: 20px; width: 90%; max-width: 500px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); position: relative;">
+            <button id="closeStudyModalBtn" style="position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer;">&times;</button>
+            <h2 style="margin-top: 0; margin-bottom: 20px;">Хочу учиться</h2>
+            <form id="studyForm" style="display: flex; flex-direction: column; gap: 15px;">
+                
+                <input type="text" id="studyName" placeholder="Ваше имя" required style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                <input type="tel" id="studyPhone" placeholder="Номер телефона" required style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                
+                <input type="number" id="studyAge" placeholder="Сколько вам лет?" required style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 500; font-size: 0.9rem;">Изучали ли вы язык ранее?</label>
+                    <select id="studyBefore" style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); cursor: pointer;">
+                        <option value="Да">Да, изучал(а)</option>
+                        <option value="Нет">Нет, с нуля</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 500; font-size: 0.9rem;">Имеются ли сертификаты (IELTS/CEFR)?</label>
+                    <select id="studyCerts" style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); cursor: pointer;">
+                        <option value="Нет">Нет</option>
+                        <option value="Да">Да, имеются</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-weight: 500; font-size: 0.9rem;">Выберите желаемый курс:</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <label style="flex: 1; min-width: 120px; text-align: center; background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 10px; border-radius: 10px; cursor: pointer; transition: 0.2s;">
+                            <input type="radio" name="studyCourse" value="English" checked style="display: none;">
+                            <span class="course-radio-btn">English</span>
+                        </label>
+                        <label style="flex: 1; min-width: 120px; text-align: center; background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 10px; border-radius: 10px; cursor: pointer; transition: 0.2s;">
+                            <input type="radio" name="studyCourse" value="Maths" style="display: none;">
+                            <span class="course-radio-btn">Maths</span>
+                        </label>
+                        <label style="flex: 1; min-width: 120px; text-align: center; background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 10px; border-radius: 10px; cursor: pointer; transition: 0.2s;">
+                            <input type="radio" name="studyCourse" value="SAT" style="display: none;">
+                            <span class="course-radio-btn">SAT</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="studySubmitBtn" style="margin-top: 10px; padding: 14px; font-size: 1.1rem;">Отправить</button>
+                <p id="studyStatus" class="form-status" style="display: none; text-align: center; margin: 0;"></p>
+            </form>
+        </div>
+    </div>
+    
+    <style>
+        /* Custom radio button styles for modal */
+        input[name="studyCourse"]:checked + .course-radio-btn {
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+        input[name="studyCourse"]:checked ~ label {
+            border-color: var(--accent-primary);
+            background: rgba(var(--accent-primary-rgb), 0.1);
+        }
+        label:has(input[name="studyCourse"]:checked) {
+            border-color: var(--accent-primary) !important;
+            box-shadow: 0 0 0 1px var(--accent-primary);
+        }
+    </style>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Vantage Education Center</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo_gold_new.png" alt="Vantage" class="site-logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                <span style="display: flex; flex-direction: column; line-height: 1.2;">
+                    <span style="font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; color: var(--text-primary);">Vantage</span>
+                    <span style="font-size: 0.6rem; font-weight: 500; letter-spacing: 1px; color: var(--text-secondary); text-transform: uppercase;">Education Center</span>
+                </span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
+                <li><a href="courses.html" data-i18n="nav_courses">Курсы</a></li>
+                <li><a href="index.html#contacts" data-i18n="nav_contacts">Контакты</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <!-- Language Selector -->
+                <div class="lang-selector">
+                    <button id="langBtn" class="lang-btn"><span id="currentLang">RU</span> <span class="arrow">▼</span></button>
+                    <ul class="lang-dropdown" id="langDropdown">
+                        <li data-lang="ru">Русский (RU)</li>
+                        <li data-lang="en">English (EN)</li>
+                        <li data-lang="uz">O'zbek (UZ)</li>
+                    </ul>
+                </div>
+                
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="theme-btn" aria-label="Toggle Theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
+            <li><a href="courses.html" data-i18n="nav_courses">Курсы</a></li>
+            <li><a href="index.html#contacts" data-i18n="nav_contacts">Контакты</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 data-i18n="hero_title">Мы не просто обучаем, мы меняем жизни людей!</h1>
+                <p data-i18n="hero_subtitle">В Vantage мы создаем атмосферу, где каждый студент достигает своих целей и открывает новые горизонты.</p>
+                <a href="courses.html" class="btn btn-primary" data-i18n="hero_btn">Запишитесь на первый урок</a>
+            </div>
+            <div class="hero-image">
+                <img src="images/vantage_logo_new.png" alt="Vantage Education" style="width: 100%; max-width: 650px; height: auto; mix-blend-mode: screen; filter: grayscale(1) invert(1) brightness(1.5); border: none; box-shadow: none; clip-path: inset(3px);" class="floating">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats container">
+        <div class="stat-card">
+            <h3 class="stat-number">14+<span class="dot blue"></span></h3>
+            <p data-i18n="stat_years">лет опыта</p>
+        </div>
+        <div class="stat-card">
+            <h3 class="stat-number">2000+<span class="dot red"></span></h3>
+            <p data-i18n="stat_students">студентов обучено</p>
+        </div>
+        <div class="stat-card">
+            <h3 class="stat-number">1<span class="dot orange"></span></h3>
+            <p data-i18n="stat_branches">главный офис</p>
+        </div>
+        <div class="stat-card">
+            <h3 class="stat-number">10+<span class="dot green"></span></h3>
+            <p data-i18n="stat_staff">опытных сотрудников</p>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="features" id="courses" style="background: var(--bg-primary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="courses_title">Наши курсы</h2>
+                <p data-i18n="courses_subtitle">Выберите программу, которая подходит именно вам.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card course-card">
+                    <h3 data-i18n="course1_title">General English</h3>
+                    <p class="course-desc" data-i18n="course1_desc">Общий курс английского языка для всех уровней.</p>
+                    <ul class="course-details">
+                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="c1_level">Beginner - Advanced</span></li>
+                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="c1_age">от 12 лет</span></li>
+                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="c1_price">500,000 UZS</span></li>
+                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="c1_mat">Книга (150,000 UZS)</span></li>
+                    </ul>
+                </div>
+                <div class="feature-card course-card">
+                    <h3 data-i18n="course2_title">IELTS Preparation</h3>
+                    <p class="course-desc" data-i18n="course2_desc">Интенсивная подготовка к международному экзамену IELTS.</p>
+                    <ul class="course-details">
+                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="c2_level">Intermediate+</span></li>
+                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="c2_age">от 15 лет</span></li>
+                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="c2_price">600,000 UZS</span></li>
+                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="c2_mat">Книга + тесты (200,000 UZS)</span></li>
+                    </ul>
+                </div>
+                <div class="feature-card course-card">
+                    <h3 data-i18n="course3_title">Kids English</h3>
+                    <p class="course-desc" data-i18n="course3_desc">Увлекательный английский для детей от 7 лет.</p>
+                    <ul class="course-details">
+                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="c3_level">Starters, Movers</span></li>
+                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="c3_age">7 - 11 лет</span></li>
+                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="c3_price">450,000 UZS</span></li>
+                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="c3_mat">Книга (150,000 UZS)</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="courses.html" class="btn btn-primary" data-i18n="view_all_courses">Смотреть все курсы ➔</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="features" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="features_title">Почему выбирают нас?</h2>
+                <p data-i18n="features_subtitle">Центр изучения языков Vantage занимается обучением молодежи с 2014 года.</p>
+            </div>
+            
+            <div class="about-video-container" id="videoWrapper" style="margin-bottom: 30px; border-radius: 24px; overflow: hidden; box-shadow: var(--card-shadow); border: 1px solid var(--border-color); background-color: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer;">
+                <video id="aboutVideo" style="width: 100%; height: 100%; display: block; object-fit: contain;" poster="images/video-placeholder.jpg">
+                    <source src="images/about.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+                <div id="playBtn" style="position: absolute; width: 80px; height: 80px; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white; transition: transform 0.3s, background 0.3s; z-index: 2;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 6px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+            </div>
+            <div style="text-align: center; margin-bottom: 60px;">
+                <a href="courses.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 16px 32px; border-radius: 50px; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); box-shadow: 0 10px 20px rgba(0,0,0,0.2); text-decoration: none; display: inline-block;">Хочу учиться</a>
+            </div>
+            
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="icon-wrapper bg-orange">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    </div>
+                    <h3 data-i18n="feature1_title">Дополнительные занятия</h3>
+                    <p data-i18n="feature1_desc">Если вы не смогли хорошо усвоить тему, вторые учителя всегда будут рядом и помогут вам.</p>
+                </div>
+
+                <!-- Feature 2: Large Card -->
+                <div class="feature-card large">
+                    <div class="large-card-content">
+                        <h3 data-i18n="feature2_title">Опытные преподаватели</h3>
+                        <p data-i18n="feature2_desc">Каждый преподаватель прошел специальные курсы повышения квалификации. Наши уважаемые преподаватели имеют высокие результаты IELTS.</p>
+                    </div>
+                    <div class="large-card-img">
+                        <img src="images/teacher.png" alt="Teachers">
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="icon-wrapper bg-red">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                    </div>
+                    <h3 data-i18n="feature3_title">Бесплатные мероприятия</h3>
+                    <p data-i18n="feature3_desc">Speaking clubs, movie nights и общение со знаменитостями — совершенно бесплатно для студентов.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="icon-wrapper bg-green">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                    <h3 data-i18n="feature4_title">Тестовый Центр</h3>
+                    <p data-i18n="feature4_desc">У нас есть отдельный тестовый центр, где вы можете сдать MOCK экзамены для подготовки.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="icon-wrapper bg-dark">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                    </div>
+                    <h3 data-i18n="feature5_title">Co-working зоны</h3>
+                    <p data-i18n="feature5_desc">Специальные co-working зоны для наших учеников, где можно свободно заниматься вне уроков.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Promo Section -->
+    <section class="certificate-promo">
+        <div class="container promo-container">
+            <div class="promo-content">
+                <h2 data-i18n="promo_title">Сила Сертификата</h2>
+                <p data-i18n="promo_subtitle">Наши сертификаты признаны ведущими работодателями и университетами страны. Откройте свое будущее!</p>
+            </div>
+            <div class="promo-image" style="width: 100%; max-width: 600px; padding: 0; display: flex; align-items: center;">
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <!-- Set 1 -->
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=wiut.uz&sz=128" alt="WIUT">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Westminster</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">University</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=webster.uz&sz=128" alt="Webster">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Webster</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">University</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=mdis.uz&sz=128" alt="MDIS">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">MDIS</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Tashkent</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=inha.uz&sz=128" alt="Inha">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Inha</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">University</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=amity.uz&sz=128" alt="Amity">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Amity</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">University</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=polito.uz&sz=128" alt="Turin">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Turin</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Polytechnic</span>
+                            </div>
+                        </div>
+
+                        <!-- Set 2 (Duplicate for infinite loop) -->
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=wiut.uz&sz=128" alt="WIUT">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Westminster</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">University</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=webster.uz&sz=128" alt="Webster">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Webster</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">University</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=mdis.uz&sz=128" alt="MDIS">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">MDIS</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Tashkent</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=inha.uz&sz=128" alt="Inha">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Inha</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">University</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=amity.uz&sz=128" alt="Amity">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Amity</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">University</span>
+                            </div>
+                        </div>
+                        <div class="uni-slide">
+                            <img src="https://www.google.com/s2/favicons?domain=polito.uz&sz=128" alt="Turin">
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Turin</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Polytechnic</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section class="contacts-section" id="contacts">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="contacts_title">Наши контакты</h2>
+                <p data-i18n="contacts_subtitle">Свяжитесь с нами или приходите в наш главный офис.</p>
+            </div>
+            
+            <div class="contacts-grid">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <h3>Главный офис</h3>
+                        <p><strong>Адрес:</strong> <span data-i18n="address_text">г. Ташкент, Чиланзарский район, ул. Чопон ота, Ц квартал, дом 4Б</span></p>
+                        <p><strong>Телефон:</strong> +998 71 200 00 00</p>
+                        <p><strong>Режим работы:</strong> Пн-Вс: 09:00 - 20:00</p>
+                    </div>
+                    <div class="contact-card">
+                        <h3>Свяжитесь с нами</h3>
+                        <form class="contact-form" id="telegramForm">
+                            <input type="text" id="userName" placeholder="Ваше имя" data-i18n-placeholder="form_name" required>
+                            <input type="tel" id="userPhone" placeholder="Номер телефона" data-i18n-placeholder="form_phone" required>
+                            <textarea id="userProblem" placeholder="Кратко опишите причину обращения" data-i18n-placeholder="form_problem" required style="padding: 14px 20px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); font-family: inherit; font-size: 1rem; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 100px;"></textarea>
+                            <button type="submit" class="btn btn-primary" id="submitBtn"><span data-i18n="form_btn">Отправить заявку</span></button>
+                            <p id="formStatus" class="form-status" style="display: none;"></p>
+                        </form>
+                    </div>
+                </div>
+                <div class="map-container" style="position: relative;">
+                    <a href="https://yandex.com/maps/?pt=69.208700,41.284129&z=17&l=map" target="_blank" class="map-link">
+                        <span data-i18n="open_map">Открыть в картах</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                    <!-- Yandex map -->
+                    <iframe src="https://yandex.ru/map-widget/v1/?ll=69.208700%2C41.284129&z=17&pt=69.208700,41.284129,pm2rdm" width="100%" height="400px" style="border:0; border-radius: 20px; min-height: 400px;" allowfullscreen="true" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="margin-bottom: 10px;">
+                    <img src="images/logo_gold_new.png" alt="Vantage" class="site-logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    <span style="display: flex; flex-direction: column; line-height: 1.2;">
+                        <span style="font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; color: var(--text-primary);">Vantage</span>
+                        <span style="font-size: 0.6rem; font-weight: 500; letter-spacing: 1px; color: var(--text-secondary); text-transform: uppercase;">Education Center</span>
+                    </span>
+                </a>
+                <p data-i18n="footer_desc">Образовательный центр, меняющий жизни через знания.</p>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_links">Ссылки</h4>
+                <ul>
+                    <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
+                    <li><a href="courses.html" data-i18n="nav_courses">Курсы</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_social">Социальные сети</h4>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/vantage_education_center/" target="_blank">Instagram</a>
+                    <a href="#">Telegram</a>
+                    <a href="#">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vantage Education Center. <span data-i18n="footer_rights">Все права защищены.</span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Study Modal -->
+    <div id="studyModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+        <div class="modal-content" style="background: var(--bg-primary); padding: 30px; border-radius: 20px; width: 90%; max-width: 500px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); position: relative;">
+            <button id="closeStudyModalBtn" style="position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer;">&times;</button>
+            <h2 style="margin-top: 0; margin-bottom: 20px;">Хочу учиться</h2>
+            <form id="studyForm" style="display: flex; flex-direction: column; gap: 15px;">
+                
+                <input type="text" id="studyName" placeholder="Ваше имя" required style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                <input type="tel" id="studyPhone" placeholder="Номер телефона" required style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                
+                <input type="number" id="studyAge" placeholder="Сколько вам лет?" required style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 500; font-size: 0.9rem;">Изучали ли вы язык ранее?</label>
+                    <select id="studyBefore" style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); cursor: pointer;">
+                        <option value="Да">Да, изучал(а)</option>
+                        <option value="Нет">Нет, с нуля</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 500; font-size: 0.9rem;">Имеются ли сертификаты (IELTS/CEFR)?</label>
+                    <select id="studyCerts" style="padding: 12px 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); cursor: pointer;">
+                        <option value="Нет">Нет</option>
+                        <option value="Да">Да, имеются</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-weight: 500; font-size: 0.9rem;">Выберите желаемый курс:</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <label style="flex: 1; min-width: 120px; text-align: center; background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 10px; border-radius: 10px; cursor: pointer; transition: 0.2s;">
+                            <input type="radio" name="studyCourse" value="English" checked style="display: none;">
+                            <span class="course-radio-btn">English</span>
+                        </label>
+                        <label style="flex: 1; min-width: 120px; text-align: center; background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 10px; border-radius: 10px; cursor: pointer; transition: 0.2s;">
+                            <input type="radio" name="studyCourse" value="Maths" style="display: none;">
+                            <span class="course-radio-btn">Maths</span>
+                        </label>
+                        <label style="flex: 1; min-width: 120px; text-align: center; background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 10px; border-radius: 10px; cursor: pointer; transition: 0.2s;">
+                            <input type="radio" name="studyCourse" value="SAT" style="display: none;">
+                            <span class="course-radio-btn">SAT</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="studySubmitBtn" style="margin-top: 10px; padding: 14px; font-size: 1.1rem;">Отправить</button>
+                <p id="studyStatus" class="form-status" style="display: none; text-align: center; margin: 0;"></p>
+            </form>
+        </div>
+    </div>
+    
+    <style>
+        /* Custom radio button styles for modal */
+        input[name="studyCourse"]:checked + .course-radio-btn {
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+        input[name="studyCourse"]:checked ~ label {
+            border-color: var(--accent-primary);
+            background: rgba(var(--accent-primary-rgb), 0.1);
+        }
+        label:has(input[name="studyCourse"]:checked) {
+            border-color: var(--accent-primary) !important;
+            box-shadow: 0 0 0 1px var(--accent-primary);
+        }
+    </style>
+</body>
+</html>
