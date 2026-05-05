@@ -344,6 +344,26 @@ ul {
     border: 1px solid var(--border-color);
 }
 
+.hero-logo {
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    border: none !important;
+    box-shadow: none !important;
+    clip-path: inset(3px);
+    border-radius: 0 !important;
+}
+
+[data-theme="dark"] .hero-logo {
+    mix-blend-mode: screen;
+    filter: grayscale(1) invert(1) brightness(1.5);
+}
+
+[data-theme="light"] .hero-logo {
+    mix-blend-mode: multiply;
+    filter: none;
+}
+
 .floating {
     animation: float 6s ease-in-out infinite;
 }

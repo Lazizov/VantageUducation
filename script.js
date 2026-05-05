@@ -231,7 +231,7 @@ const translations = {
         cmaths_age: "12 yoshdan",
         cmaths_price: "550,000 UZS",
         cmaths_mat: "Ish daftari (150,000 UZS)",
-        hero_title: "Biz faqat ingliz tilini o'rgatmaymiz, insonlar hayotini o'zgartiramiz!",
+        hero_title: "Biz shunchaki o'rgatmaymiz, insonlar hayotini o'zgartiramiz!",
         hero_subtitle: "Vantage-da biz har bir o'quvchi o'z maqsadiga erishadigan va yangi ufqlarni ochadigan muhit yaratamiz.",
         hero_btn: "Birinchi darsga yoziling",
         stat_years: "yillik tajriba",
@@ -450,17 +450,17 @@ if (certCarousel) {
 }
 
 // --- Study Modal Logic ---
-const openStudyModalBtns = document.querySelectorAll('.openStudyModalBtn');
 const closeStudyModalBtn = document.getElementById('closeStudyModalBtn');
 const studyModal = document.getElementById('studyModal');
 const studyForm = document.getElementById('studyForm');
 const studyStatus = document.getElementById('studyStatus');
 
 if (studyModal) {
-    openStudyModalBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+    // Event delegation for dynamic buttons
+    document.body.addEventListener('click', (e) => {
+        if (e.target.classList.contains('openStudyModalBtn')) {
             studyModal.style.display = 'flex';
-        });
+        }
     });
 
     closeStudyModalBtn.addEventListener('click', () => {
@@ -524,3 +524,46 @@ if (studyModal) {
     });
 }
 
+// --- Dynamic Courses Fetching from Supabase ---
+const SUPABASE_URL = 'https://bkfvwjixmmdeojhmbpqk.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrZnZ3aml4bW1kZW9qaG1icHFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1MzYxNTksImV4cCI6MjA5MzExMjE1OX0.8IkaI1hmiGmHDV4qecDlB5QIlz_60eDVYEb-L9RZBbE';
+
+if (window.supabase) {
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const grid = document.getElementById('dynamicCoursesGrid');
+    
+    if (grid) {
+        async function fetchCourses() {
+            const { data, error } = await sb.from('courses').select('*').order('sort_order', { ascending: true });
+            if (error) {
+                grid.innerHTML = `<div style="text-align: center; color: #ef4444; padding: 40px; grid-column: 1 / -1;">Ошибка загрузки курсов: ${error.message} (Вы выполнили SQL запрос в базе данных?)</div>`;
+                return;
+            }
+            
+            if (!data || data.length === 0) {
+                grid.innerHTML = `<div style="text-align: center; color: var(--text-secondary); padding: 40px; grid-column: 1 / -1;">Нет доступных курсов. Добавьте их в панели администратора.</div>`;
+                return;
+            }
+            
+            // Render courses based on page (index.html shows 3, courses.html shows all)
+            const isHomePage = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/');
+            const coursesToShow = isHomePage ? data.slice(0, 3) : data;
+            
+            grid.innerHTML = coursesToShow.map(c => `
+                <div class="feature-card course-card">
+                    <h3>${c.title}</h3>
+                    <p class="course-desc">${c.description}</p>
+                    <ul class="course-details">
+                        <li><strong>Уровень:</strong> <span>${c.level}</span></li>
+                        <li><strong>Возраст:</strong> <span>${c.age}</span></li>
+                        <li><strong>Стоимость в месяц:</strong> <span>${c.price}</span></li>
+                        <li><strong>Материалы:</strong> <span>${c.materials}</span></li>
+                    </ul>
+                    <button class="openStudyModalBtn" style="margin-top: 15px; width: 100%; padding: 12px; border-radius: 8px; border: none; background: var(--accent-blue); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Хочу учиться</button>
+                </div>
+            `).join('');
+        }
+        
+        fetchCourses();
+    }
+}

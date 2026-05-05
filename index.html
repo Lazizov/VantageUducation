@@ -24,7 +24,8 @@
             
             <ul class="nav-links">
                 <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
-                <li><a href="courses.html" data-i18n="nav_courses">Курсы</a></li>
+                <li><a href="courses/index.html" data-i18n="nav_courses">Курсы</a></li>
+                <li><a href="shop/index.html" data-i18n="nav_shop">Магазин</a></li>
                 <li><a href="index.html#contacts" data-i18n="nav_contacts">Контакты</a></li>
             </ul>
 
@@ -57,7 +58,8 @@
     <div class="mobile-nav">
         <ul class="mobile-nav-links">
             <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
-            <li><a href="courses.html" data-i18n="nav_courses">Курсы</a></li>
+            <li><a href="courses/index.html" data-i18n="nav_courses">Курсы</a></li>
+            <li><a href="shop/index.html" data-i18n="nav_shop">Магазин</a></li>
             <li><a href="index.html#contacts" data-i18n="nav_contacts">Контакты</a></li>
         </ul>
     </div>
@@ -68,10 +70,10 @@
             <div class="hero-content">
                 <h1 data-i18n="hero_title">Мы не просто обучаем, мы меняем жизни людей!</h1>
                 <p data-i18n="hero_subtitle">В Vantage мы создаем атмосферу, где каждый студент достигает своих целей и открывает новые горизонты.</p>
-                <a href="courses.html" class="btn btn-primary" data-i18n="hero_btn">Запишитесь на первый урок</a>
+                <a href="courses/index.html" class="btn btn-primary" data-i18n="hero_btn">Запишитесь на первый урок</a>
             </div>
             <div class="hero-image">
-                <img src="images/vantage_logo_new.png" alt="Vantage Education" style="width: 100%; max-width: 650px; height: auto; mix-blend-mode: screen; filter: grayscale(1) invert(1) brightness(1.5); border: none; box-shadow: none; clip-path: inset(3px);" class="floating">
+                <img src="images/vantage_logo_new.png" alt="Vantage Education" class="floating hero-logo">
             </div>
         </div>
     </section>
@@ -103,40 +105,13 @@
                 <h2 data-i18n="courses_title">Наши курсы</h2>
                 <p data-i18n="courses_subtitle">Выберите программу, которая подходит именно вам.</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card course-card">
-                    <h3 data-i18n="course1_title">General English</h3>
-                    <p class="course-desc" data-i18n="course1_desc">Общий курс английского языка для всех уровней.</p>
-                    <ul class="course-details">
-                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="c1_level">Beginner - Advanced</span></li>
-                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="c1_age">от 12 лет</span></li>
-                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="c1_price">500,000 UZS</span></li>
-                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="c1_mat">Книга (150,000 UZS)</span></li>
-                    </ul>
-                </div>
-                <div class="feature-card course-card">
-                    <h3 data-i18n="course2_title">IELTS Preparation</h3>
-                    <p class="course-desc" data-i18n="course2_desc">Интенсивная подготовка к международному экзамену IELTS.</p>
-                    <ul class="course-details">
-                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="c2_level">Intermediate+</span></li>
-                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="c2_age">от 15 лет</span></li>
-                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="c2_price">600,000 UZS</span></li>
-                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="c2_mat">Книга + тесты (200,000 UZS)</span></li>
-                    </ul>
-                </div>
-                <div class="feature-card course-card">
-                    <h3 data-i18n="course3_title">Kids English</h3>
-                    <p class="course-desc" data-i18n="course3_desc">Увлекательный английский для детей от 7 лет.</p>
-                    <ul class="course-details">
-                        <li><strong data-i18n="c_level">Уровень:</strong> <span data-i18n="c3_level">Starters, Movers</span></li>
-                        <li><strong data-i18n="c_age">Возраст:</strong> <span data-i18n="c3_age">7 - 11 лет</span></li>
-                        <li><strong data-i18n="c_price">Стоимость в месяц:</strong> <span data-i18n="c3_price">450,000 UZS</span></li>
-                        <li><strong data-i18n="c_mat">Материалы:</strong> <span data-i18n="c3_mat">Книга (150,000 UZS)</span></li>
-                    </ul>
+            <div class="features-grid" id="dynamicCoursesGrid">
+                <div style="text-align: center; color: var(--text-secondary); padding: 40px; grid-column: 1 / -1;">
+                    Загрузка курсов...
                 </div>
             </div>
             <div style="text-align: center; margin-top: 40px;">
-                <a href="courses.html" class="btn btn-primary" data-i18n="view_all_courses">Смотреть все курсы ➔</a>
+                <a href="courses/index.html" class="btn btn-primary" data-i18n="view_all_courses">Смотреть все курсы ➔</a>
             </div>
         </div>
     </section>
@@ -372,7 +347,7 @@
                 <h4 data-i18n="footer_links">Ссылки</h4>
                 <ul>
                     <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
-                    <li><a href="courses.html" data-i18n="nav_courses">Курсы</a></li>
+                    <li><a href="courses/index.html" data-i18n="nav_courses">Курсы</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -389,6 +364,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 
     <!-- Study Modal -->

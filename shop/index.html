@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин — Vantage Education Center</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .shop-hero {
+            padding: 120px 0 60px;
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+        .shop-hero h1 { font-size: 2.8rem; margin-bottom: 12px; }
+        .shop-hero p { color: var(--text-secondary); font-size: 1.1rem; }
+
+        .shop-body { padding: 60px 0; background: var(--bg-primary); }
+
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        .cat-tab {
+            padding: 8px 20px;
+            border-radius: 100px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        .cat-tab:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+        .cat-tab.active { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+        }
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .product-card:hover {
+            border-color: var(--text-secondary);
+            transform: translateY(-3px);
+        }
+        .product-category-badge {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+        .product-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin: 0 0 8px;
+        }
+        .product-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0 0 16px;
+            flex: 1;
+        }
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .product-stock {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .product-stock.out { color: #ef4444; }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+            grid-column: 1 / -1;
+        }
+        .empty-state h3 { color: var(--text-primary); margin-bottom: 10px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo_gold_new.png" alt="Vantage" class="site-logo" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                <span style="display:flex;flex-direction:column;line-height:1.2;">
+                    <span style="font-weight:800;font-size:1.2rem;letter-spacing:1px;color:var(--text-primary);">Vantage</span>
+                    <span style="font-size:0.6rem;font-weight:500;letter-spacing:1px;color:var(--text-secondary);text-transform:uppercase;">Education Center</span>
+                </span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="../index.html#about" data-i18n="nav_about">О нас</a></li>
+                <li><a href="../courses/index.html" data-i18n="nav_courses">Курсы</a></li>
+                <li><a href="index.html" data-i18n="nav_shop">Магазин</a></li>
+                <li><a href="../index.html#contacts" data-i18n="nav_contacts">Контакты</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <div class="lang-selector">
+                    <button id="langBtn" class="lang-btn"><span id="currentLang">RU</span> <span class="arrow">▼</span></button>
+                    <ul class="lang-dropdown" id="langDropdown">
+                        <li data-lang="ru">Русский (RU)</li>
+                        <li data-lang="en">English (EN)</li>
+                        <li data-lang="uz">O'zbek (UZ)</li>
+                    </ul>
+                </div>
+                <button id="themeToggle" class="theme-btn" aria-label="Toggle Theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button class="mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav">
+        <ul class="mobile-nav-links">
+            <li><a href="../index.html#about" data-i18n="nav_about">О нас</a></li>
+            <li><a href="../courses/index.html" data-i18n="nav_courses">Курсы</a></li>
+            <li><a href="index.html" data-i18n="nav_shop">Магазин</a></li>
+            <li><a href="../index.html#contacts" data-i18n="nav_contacts">Контакты</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <section class="shop-hero">
+        <div class="container">
+            <h1>Магазин</h1>
+            <p>Учебные материалы, тетради и канцелярия для студентов</p>
+        </div>
+    </section>
+
+    <!-- Shop Body -->
+    <section class="shop-body">
+        <div class="container">
+            <!-- Category filter tabs -->
+            <div class="category-tabs" id="categoryTabs">
+                <button class="cat-tab active" data-cat="all">Все товары</button>
+            </div>
+
+            <!-- Products grid -->
+            <div class="products-grid" id="productsGrid">
+                <div class="empty-state">
+                    <p>Загрузка товаров...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="../index.html" class="logo" style="margin-bottom:10px;">
+                    <img src="../images/logo_gold_new.png" alt="Vantage" class="site-logo" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                    <span style="display:flex;flex-direction:column;line-height:1.2;">
+                        <span style="font-weight:800;font-size:1.2rem;letter-spacing:1px;color:var(--text-primary);">Vantage</span>
+                        <span style="font-size:0.6rem;font-weight:500;letter-spacing:1px;color:var(--text-secondary);text-transform:uppercase;">Education Center</span>
+                    </span>
+                </a>
+                <p data-i18n="footer_desc">Образовательный центр, меняющий жизни через знания.</p>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_links">Ссылки</h4>
+                <ul>
+                    <li><a href="../index.html#about" data-i18n="nav_about">О нас</a></li>
+                    <li><a href="../courses/index.html" data-i18n="nav_courses">Курсы</a></li>
+                    <li><a href="index.html" data-i18n="nav_shop">Магазин</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_social">Социальные сети</h4>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/vantage_education_center/" target="_blank">Instagram</a>
+                    <a href="#">Telegram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vantage Education Center. <span data-i18n="footer_rights">Все права защищены.</span></p>
+        </div>
+    </footer>
+
+    <script>
+        const SUPABASE_URL = 'https://bkfvwjixmmdeojhmbpqk.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrZnZ3aml4bW1kZW9qaG1icHFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1MzYxNTksImV4cCI6MjA5MzExMjE1OX0.8IkaI1hmiGmHDV4qecDlB5QIlz_60eDVYEb-L9RZBbE';
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let allProducts = [];
+        let allCategories = [];
+        let activeCat = 'all';
+
+        async function init() {
+            const [{ data: cats }, { data: prods }] = await Promise.all([
+                sb.from('categories').select('*').order('name'),
+                sb.from('products').select('*, categories(name)').order('name')
+            ]);
+            allCategories = cats || [];
+            allProducts = prods || [];
+            renderTabs();
+            renderProducts();
+        }
+
+        function renderTabs() {
+            const tabs = document.getElementById('categoryTabs');
+            tabs.innerHTML = `<button class="cat-tab active" data-cat="all">Все товары</button>`;
+            allCategories.forEach(c => {
+                const btn = document.createElement('button');
+                btn.className = 'cat-tab';
+                btn.dataset.cat = c.id;
+                btn.textContent = c.name;
+                tabs.appendChild(btn);
+            });
+            tabs.addEventListener('click', e => {
+                if (!e.target.classList.contains('cat-tab')) return;
+                document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                activeCat = e.target.dataset.cat;
+                renderProducts();
+            });
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const filtered = activeCat === 'all' ? allProducts : allProducts.filter(p => p.category_id === activeCat);
+
+            if (!filtered.length) {
+                grid.innerHTML = `<div class="empty-state"><h3>Товары не найдены</h3><p>В этой категории пока нет товаров.</p></div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => {
+                const inStock = p.stock > 0;
+                const imgHtml = p.image_url
+                    ? `<img src="${p.image_url}" alt="${p.name}" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:16px;">`
+                    : `<div style="width:100%;height:140px;background:var(--bg-secondary);border-radius:8px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;color:#555;font-size:0.8rem;">Нет фото</div>`;
+                return `
+                <div class="product-card">
+                    ${imgHtml}
+                    <div class="product-category-badge">${p.categories ? p.categories.name : ''}</div>
+                    <h3>${p.name}</h3>
+                    <p>${p.description || ''}</p>
+                    <div class="product-footer">
+                        <span class="product-price">${Number(p.price).toLocaleString()} UZS</span>
+                        <span class="product-stock ${inStock ? '' : 'out'}">${inStock ? 'В наличии: ' + p.stock : 'Нет в наличии'}</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // Theme & script
+        (function() {
+            const saved = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', saved);
+        })();
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        // Mobile menu
+        document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+            document.querySelector('.mobile-nav').classList.toggle('active');
+        });
+        document.querySelectorAll('.mobile-nav a').forEach(a => {
+            a.addEventListener('click', () => document.querySelector('.mobile-nav').classList.remove('active'));
+        });
+
+        init();
+    </script>
+</body>
+</html>

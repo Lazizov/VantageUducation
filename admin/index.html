@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель Администратора - Vantage</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* Strict Monochrome Theme */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #171717;
+            --bg-card: #121212;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --border-color: #262626;
+            --accent-main: #ffffff;
+            --accent-hover: #e5e5e5;
+            --danger: #ef4444;
+        }
+        
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); }
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        .admin-sidebar {
+            width: 250px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .admin-sidebar h2 { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; margin-top: 0; margin-bottom: 40px; color: var(--accent-main); }
+        
+        .sidebar-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: none;
+            text-align: left;
+            padding: 12px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+        .sidebar-btn:hover, .sidebar-btn.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+        .admin-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--accent-main);
+            color: #000;
+        }
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        .btn-outline:hover {
+            border-color: var(--text-secondary);
+        }
+
+        /* Auth Screen */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .auth-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+        .auth-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            box-sizing: border-box;
+        }
+        
+        /* Dashboard Tables */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .admin-table th, .admin-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+        .admin-table th {
+            background: var(--bg-secondary);
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: transparent;
+            color: var(--text-primary);
+        }
+        .action-btn:hover { background: rgba(255,255,255,0.05); }
+        .del-btn { color: var(--danger); border-color: rgba(239,68,68,0.3); }
+        .del-btn:hover { background: rgba(239,68,68,0.1); }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--border-color);
+        }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;}
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 12px; border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary); color: var(--text-primary);
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- Auth View -->
+    <div id="authView" class="auth-container">
+        <div class="auth-card">
+            <h2 style="margin-top: 0; font-weight: 600;">Vantage Admin</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 0.9rem;">Вход в систему управления</p>
+            <form onsubmit="event.preventDefault(); login();" style="width:100%;">
+                <input type="email" id="authEmail" class="auth-input" placeholder="Email" autocomplete="email">
+                <input type="password" id="authPass" class="auth-input" placeholder="Пароль" autocomplete="current-password">
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Войти</button>
+            </form>
+            <p id="authError" style="color: var(--danger); margin-top: 15px; font-size: 0.85rem;"></p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard View -->
+    <div id="dashboardView" class="admin-layout" style="display: none;">
+        <div class="admin-sidebar">
+            <h2>VANTAGE.</h2>
+            <button class="sidebar-btn active" onclick="switchTab('courses')">Управление курсами</button>
+            <button class="sidebar-btn" onclick="switchTab('categories')">Категории магазина</button>
+            <button class="sidebar-btn" onclick="switchTab('products')">Товары магазина</button>
+            
+            <button class="sidebar-btn" style="margin-top: auto; color: var(--danger);" onclick="logout()">Выйти</button>
+        </div>
+        
+        <div class="admin-content">
+            
+            <!-- Courses Tab -->
+            <div id="tab-courses" class="tab-content active">
+                <div class="admin-header">
+                    <h2>Курсы</h2>
+                    <button class="btn btn-primary" onclick="openModal('course')">Добавить курс</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Уровень</th>
+                            <th>Возраст</th>
+                            <th>Цена</th>
+                            <th style="width: 150px;">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coursesTableBody">
+                        <tr><td colspan="5" style="text-align:center;">Загрузка...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Categories Tab -->
+            <div id="tab-categories" class="tab-content">
+                <div class="admin-header">
+                    <h2>Категории магазина</h2>
+                    <button class="btn btn-primary" onclick="openModal('category')">Добавить категорию</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Название категории</th>
+                            <th style="width: 150px;">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoriesTableBody">
+                        <tr><td colspan="3" style="text-align:center;">Загрузка...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Products Tab -->
+            <div id="tab-products" class="tab-content">
+                <div class="admin-header">
+                    <h2>Товары магазина</h2>
+                    <button class="btn btn-primary" onclick="openModal('product')">Добавить товар</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Категория</th>
+                            <th>Цена</th>
+                            <th>В наличии</th>
+                            <th style="width: 150px;">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <tr><td colspan="5" style="text-align:center;">Загрузка...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Course Modal -->
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <h3 id="courseModalTitle" style="margin-top: 0; margin-bottom: 20px;">Добавить курс</h3>
+            <input type="hidden" id="courseId">
+            <div class="form-group">
+                <label>Название курса</label>
+                <input type="text" id="courseTitle" placeholder="General English">
+            </div>
+            <div class="form-group">
+                <label>Описание</label>
+                <textarea id="courseDesc" rows="3"></textarea>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Уровень</label>
+                    <input type="text" id="courseLevel" placeholder="Beginner - Advanced">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Возраст</label>
+                    <input type="text" id="courseAge" placeholder="от 12 лет">
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Стоимость (мес)</label>
+                    <input type="text" id="coursePrice" placeholder="500,000 UZS">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Материалы</label>
+                    <input type="text" id="courseMat" placeholder="Книга (150,000 UZS)">
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 30px;">
+                <button class="btn btn-primary" style="flex: 1;" onclick="saveCourse()">Сохранить</button>
+                <button class="btn btn-outline" style="flex: 1;" onclick="closeModal('course')">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <h3 id="categoryModalTitle" style="margin-top: 0; margin-bottom: 20px;">Добавить категорию</h3>
+            <input type="hidden" id="categoryId">
+            <div class="form-group">
+                <label>Название категории</label>
+                <input type="text" id="categoryName" placeholder="Тетради">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 30px;">
+                <button class="btn btn-primary" style="flex: 1;" onclick="saveCategory()">Сохранить</button>
+                <button class="btn btn-outline" style="flex: 1;" onclick="closeModal('category')">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content" style="max-width: 560px;">
+            <h3 id="productModalTitle" style="margin-top: 0; margin-bottom: 20px;">Добавить товар</h3>
+            <input type="hidden" id="productId">
+            <input type="hidden" id="productExistingImage">
+
+            <!-- Image Upload -->
+            <div class="form-group">
+                <label>Фото товара</label>
+                <div id="imageUploadArea" onclick="document.getElementById('productImageFile').click()" style="
+                    border: 1px dashed var(--border-color);
+                    border-radius: 8px;
+                    padding: 20px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: border-color 0.2s;
+                    position: relative;
+                    min-height: 120px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 8px;
+                " onmouseover="this.style.borderColor='#888'" onmouseout="this.style.borderColor='var(--border-color)'">
+                    <img id="imagePreview" src="" alt="" style="display:none; max-height:160px; max-width:100%; border-radius:6px; object-fit:cover;">
+                    <div id="imageUploadPlaceholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#666;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <p style="margin:0;color:#666;font-size:0.85rem;">Нажмите чтобы выбрать фото</p>
+                        <p style="margin:0;color:#555;font-size:0.75rem;">Фото с устройства, камеры или галереи</p>
+                    </div>
+                    <!-- Hidden file input: accepts images from gallery, files, and camera -->
+                    <input type="file" id="productImageFile" accept="image/*" capture="environment"
+                        style="display:none;"
+                        onchange="previewProductImage(event)">
+                </div>
+                <!-- Remove image button -->
+                <button id="removeImageBtn" type="button" onclick="removeProductImage()" style="
+                    display: none;
+                    margin-top: 8px;
+                    background: transparent;
+                    border: 1px solid rgba(239,68,68,0.4);
+                    color: #ef4444;
+                    padding: 5px 12px;
+                    border-radius: 5px;
+                    font-size: 0.8rem;
+                    cursor: pointer;
+                    font-family: inherit;
+                ">Удалить фото</button>
+            </div>
+
+            <div class="form-group">
+                <label>Название товара</label>
+                <input type="text" id="productName" placeholder="Тетрадь 40 листов">
+            </div>
+            <div class="form-group">
+                <label>Категория</label>
+                <select id="productCategory"></select>
+            </div>
+            <div class="form-group">
+                <label>Описание</label>
+                <textarea id="productDesc" rows="2" placeholder="Дополнительная информация..."></textarea>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Цена (UZS)</label>
+                    <input type="number" id="productPrice" placeholder="5000">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Кол-во в наличии</label>
+                    <input type="number" id="productStock" placeholder="10">
+                </div>
+            </div>
+            <p id="productSaveStatus" style="color:#666;font-size:0.85rem;text-align:center;display:none;margin-bottom:10px;">Загрузка фото...</p>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-primary" style="flex: 1;" onclick="saveProduct()">Сохранить</button>
+                <button class="btn btn-outline" style="flex: 1;" onclick="closeModal('product')">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+
+</body>
+</html>
