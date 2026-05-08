@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель Администратора - Vantage</title>
+    <link rel="icon" type="image/png" href="../images/logo_gold_new.png">
     <link rel="stylesheet" href="../styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -80,10 +81,33 @@
             .admin-content {
                 padding: 20px;
             }
-            .admin-table {
+            .admin-table, .admin-table tbody, .admin-table tr, .admin-table td {
                 display: block;
-                overflow-x: auto;
-                white-space: nowrap;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .admin-table thead { display: none; }
+            .admin-table tr {
+                margin-bottom: 20px;
+                background: var(--bg-secondary);
+                border-radius: 8px;
+                padding: 10px;
+                border: 1px solid var(--border-color);
+            }
+            .admin-table td {
+                text-align: left;
+                padding: 10px;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+            .admin-table td:last-child {
+                border-bottom: none;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .admin-table td:last-child .action-btn {
+                width: 100%;
+                margin-left: 0 !important;
             }
         }
         .admin-header {
