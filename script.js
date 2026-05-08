@@ -13,6 +13,7 @@ const translations = {
         title: "Vantage Education Center",
         nav_about: "О нас",
         nav_courses: "Курсы",
+        nav_shop: "Канцелярские товары",
         nav_contacts: "Контакты",
         courses_title: "Наши курсы",
         courses_subtitle: "Выберите программу, которая подходит именно вам.",
@@ -98,6 +99,7 @@ const translations = {
         title: "Vantage Education Center",
         nav_about: "About Us",
         nav_courses: "Courses",
+        nav_shop: "Stationery",
         nav_contacts: "Contacts",
         courses_title: "Our Courses",
         courses_subtitle: "Choose the program that suits you best.",
@@ -183,6 +185,7 @@ const translations = {
         title: "Vantage Education Center",
         nav_about: "Biz haqimizda",
         nav_courses: "Kurslar",
+        nav_shop: "Kanselyariya",
         nav_contacts: "Kontaktlar",
         courses_title: "Bizning kurslar",
         courses_subtitle: "O'zingizga mos dasturni tanlang.",
@@ -534,7 +537,11 @@ if (window.supabase) {
     
     if (grid) {
         async function fetchCourses() {
-            const { data, error } = await sb.from('courses').select('*').order('sort_order', { ascending: true });
+            let query = sb.from('courses').select('*').order('sort_order', { ascending: true });
+            if (document.getElementById('home')) {
+                query = query.limit(3);
+            }
+            const { data, error } = await query;
             if (error) {
                 grid.innerHTML = `<div style="text-align: center; color: #ef4444; padding: 40px; grid-column: 1 / -1;">Ошибка загрузки курсов: ${error.message} (Вы выполнили SQL запрос в базе данных?)</div>`;
                 return;
@@ -545,9 +552,7 @@ if (window.supabase) {
                 return;
             }
             
-            // Render courses based on page (index.html shows 3, courses.html shows all)
-            const isHomePage = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/');
-            const coursesToShow = isHomePage ? data.slice(0, 3) : data;
+            const coursesToShow = data;
             
             grid.innerHTML = coursesToShow.map(c => `
                 <div class="feature-card course-card">

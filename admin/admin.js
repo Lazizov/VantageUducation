@@ -58,13 +58,21 @@ function showDashboard() {
     loadProducts();
 }
 
-// ─── TABS ─────────────────────────────────────────────────────────────────────
+// ─── TABS & SIDEBAR ─────────────────────────────────────────────────────────────
+
+function toggleSidebar() {
+    document.querySelector('.admin-sidebar').classList.toggle('open');
+}
 
 function switchTab(tab) {
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('tab-' + tab).classList.add('active');
-    event.target.classList.add('active');
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
+    // Close sidebar on mobile after selection
+    document.querySelector('.admin-sidebar').classList.remove('open');
 }
 
 // ─── MODAL HELPERS ────────────────────────────────────────────────────────────
@@ -115,6 +123,17 @@ function renderCoursesTable() {
 function openCourseModal(courseId = null) {
     const modal = document.getElementById('courseModal');
     const title = document.getElementById('courseModalTitle');
+    
+    const matSelect = document.getElementById('courseMat');
+    if (matSelect && matSelect.tagName === 'SELECT') {
+        let matOptions = '<option value="">Без материалов</option>';
+        currentProducts.forEach(p => {
+            const pLabel = `${p.name} (${Number(p.price).toLocaleString('en-US')} UZS)`;
+            matOptions += `<option value="${pLabel}">${pLabel}</option>`;
+        });
+        matSelect.innerHTML = matOptions;
+    }
+
     if (courseId) {
         const c = currentCourses.find(x => x.id === courseId);
         document.getElementById('courseId').value = c.id;
@@ -122,7 +141,7 @@ function openCourseModal(courseId = null) {
         document.getElementById('courseDesc').value = c.description || '';
         document.getElementById('courseLevel').value = c.level || '';
         document.getElementById('courseAge').value = c.age || '';
-        document.getElementById('coursePrice').value = c.price || '';
+        document.getElementById('coursePrice').value = c.price ? c.price.replace(/\D/g, '') : '';
         document.getElementById('courseMat').value = c.materials || '';
         title.innerText = 'Изменить курс';
     } else {
@@ -134,12 +153,18 @@ function openCourseModal(courseId = null) {
 
 async function saveCourse() {
     const id = document.getElementById('courseId').value;
+    
+    let priceVal = document.getElementById('coursePrice').value.trim();
+    if (priceVal && !isNaN(priceVal)) {
+        priceVal = Number(priceVal).toLocaleString('en-US') + ' UZS';
+    }
+    
     const payload = {
         title:       document.getElementById('courseTitle').value.trim(),
         description: document.getElementById('courseDesc').value.trim(),
         level:       document.getElementById('courseLevel').value.trim(),
         age:         document.getElementById('courseAge').value.trim(),
-        price:       document.getElementById('coursePrice').value.trim(),
+        price:       priceVal,
         materials:   document.getElementById('courseMat').value.trim(),
     };
     if (!payload.title) { alert('Введите название курса'); return; }
@@ -405,3 +430,35 @@ function removeProductImage() {
     document.getElementById('imageUploadPlaceholder').style.display = 'flex';
     document.getElementById('removeImageBtn').style.display = 'none';
 }
+
+// ─── THEME TOGGLE ─────────────────────────────────────────────────────────────
+(function initAdminTheme() {
+    const saved = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    updateThemeIcons(saved);
+
+    const toggleBtn = document.getElementById('adminThemeToggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateThemeIcons(next);
+        });
+    }
+
+    function updateThemeIcons(theme) {
+        const toggleBtn = document.getElementById('adminThemeToggle');
+        if (!toggleBtn) return;
+        const sun = toggleBtn.querySelector('.sun-icon');
+        const moon = toggleBtn.querySelector('.moon-icon');
+        if (theme === 'dark') {
+            if(sun) sun.style.display = 'none';
+            if(moon) moon.style.display = 'block';
+        } else {
+            if(sun) sun.style.display = 'block';
+            if(moon) moon.style.display = 'none';
+        }
+    }
+})();

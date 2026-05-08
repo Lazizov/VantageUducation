@@ -8,16 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        /* Strict Monochrome Theme */
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #171717;
-            --bg-card: #121212;
-            --text-primary: #ffffff;
-            --text-secondary: #a3a3a3;
-            --border-color: #262626;
-            --accent-main: #ffffff;
-            --accent-hover: #e5e5e5;
+            --accent-main: #1e3a8a;
+            --accent-hover: #1e40af;
             --danger: #ef4444;
         }
         
@@ -34,8 +27,17 @@
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
+            position: fixed;
+            left: -250px;
+            top: 0;
+            bottom: 0;
+            z-index: 1001;
+            transition: left 0.3s ease;
         }
-        .admin-sidebar h2 { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; margin-top: 0; margin-bottom: 40px; color: var(--accent-main); }
+        .admin-sidebar.open {
+            left: 0;
+        }
+        .admin-sidebar h2 { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; margin-top: 0; margin-bottom: 40px; color: var(--text-primary); }
         
         .sidebar-btn {
             background: transparent;
@@ -59,16 +61,39 @@
             flex: 1;
             padding: 40px;
             overflow-y: auto;
+            width: 100%;
+        }
+        
+        /* Mobile Hamburger */
+        .mobile-admin-toggle {
+            display: block;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-content {
+                padding: 20px;
+            }
+            .admin-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
         }
         .admin-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
         }
-        .admin-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
+        .admin-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; flex: 1; }
         
         /* Buttons */
         .btn {
@@ -147,11 +172,11 @@
             letter-spacing: 0.5px;
         }
         .action-btn {
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 8px 16px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 500;
             background: transparent;
             color: var(--text-primary);
@@ -210,12 +235,30 @@
     <!-- Admin Dashboard View -->
     <div id="dashboardView" class="admin-layout" style="display: none;">
         <div class="admin-sidebar">
-            <h2>VANTAGE.</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="../images/logo_gold_new.png" alt="Vantage" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+                    <h2 style="margin: 0; font-size: 1.4rem;">Vantage</h2>
+                </div>
+                <button class="mobile-admin-toggle" style="margin: 0; padding: 0;" onclick="toggleSidebar()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
             <button class="sidebar-btn active" onclick="switchTab('courses')">Управление курсами</button>
-            <button class="sidebar-btn" onclick="switchTab('categories')">Категории магазина</button>
-            <button class="sidebar-btn" onclick="switchTab('products')">Товары магазина</button>
+            <button class="sidebar-btn" onclick="switchTab('categories')">Категории канцтоваров</button>
+            <button class="sidebar-btn" onclick="switchTab('products')">Канцелярские товары</button>
             
-            <button class="sidebar-btn" style="margin-top: auto; color: var(--danger);" onclick="logout()">Выйти</button>
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">Тема оформления</span>
+                    <button id="adminThemeToggle" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;">
+                        <svg class="sun-icon" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="moon-icon" style="display:block;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); text-align: center; margin-bottom: 12px; font-weight: 600; letter-spacing: 0.5px;">By Alavkhanov</div>
+                <button class="sidebar-btn" style="width: 100%; color: var(--danger); text-align: center; justify-content: center; background: rgba(239, 68, 68, 0.1);" onclick="logout()">Выйти</button>
+            </div>
         </div>
         
         <div class="admin-content">
@@ -223,6 +266,9 @@
             <!-- Courses Tab -->
             <div id="tab-courses" class="tab-content active">
                 <div class="admin-header">
+                    <button class="mobile-admin-toggle" onclick="toggleSidebar()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
                     <h2>Курсы</h2>
                     <button class="btn btn-primary" onclick="openModal('course')">Добавить курс</button>
                 </div>
@@ -245,7 +291,10 @@
             <!-- Categories Tab -->
             <div id="tab-categories" class="tab-content">
                 <div class="admin-header">
-                    <h2>Категории магазина</h2>
+                    <button class="mobile-admin-toggle" onclick="toggleSidebar()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                    <h2>Категории канцтоваров</h2>
                     <button class="btn btn-primary" onclick="openModal('category')">Добавить категорию</button>
                 </div>
                 <table class="admin-table">
@@ -265,7 +314,10 @@
             <!-- Products Tab -->
             <div id="tab-products" class="tab-content">
                 <div class="admin-header">
-                    <h2>Товары магазина</h2>
+                    <button class="mobile-admin-toggle" onclick="toggleSidebar()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                    <h2>Канцелярские товары</h2>
                     <button class="btn btn-primary" onclick="openModal('product')">Добавить товар</button>
                 </div>
                 <table class="admin-table">
@@ -312,12 +364,14 @@
             </div>
             <div style="display: flex; gap: 15px;">
                 <div class="form-group" style="flex: 1;">
-                    <label>Стоимость (мес)</label>
-                    <input type="text" id="coursePrice" placeholder="500,000 UZS">
+                    <label>Стоимость в мес. (без UZS)</label>
+                    <input type="number" id="coursePrice" placeholder="500000">
                 </div>
                 <div class="form-group" style="flex: 1;">
-                    <label>Материалы</label>
-                    <input type="text" id="courseMat" placeholder="Книга (150,000 UZS)">
+                    <label>Материалы (Канцтовары)</label>
+                    <select id="courseMat">
+                        <option value="">Без материалов</option>
+                    </select>
                 </div>
             </div>
             <div style="display: flex; gap: 10px; margin-top: 30px;">
@@ -375,7 +429,7 @@
                         <p style="margin:0;color:#555;font-size:0.75rem;">Фото с устройства, камеры или галереи</p>
                     </div>
                     <!-- Hidden file input: accepts images from gallery, files, and camera -->
-                    <input type="file" id="productImageFile" accept="image/*" capture="environment"
+                    <input type="file" id="productImageFile" accept="image/*"
                         style="display:none;"
                         onchange="previewProductImage(event)">
                 </div>
@@ -408,7 +462,7 @@
             </div>
             <div style="display: flex; gap: 15px;">
                 <div class="form-group" style="flex: 1;">
-                    <label>Цена (UZS)</label>
+                    <label>Цена без UZS</label>
                     <input type="number" id="productPrice" placeholder="5000">
                 </div>
                 <div class="form-group" style="flex: 1;">

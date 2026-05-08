@@ -70,7 +70,7 @@
             <div class="hero-content">
                 <h1 data-i18n="hero_title">Мы не просто обучаем, мы меняем жизни людей!</h1>
                 <p data-i18n="hero_subtitle">В Vantage мы создаем атмосферу, где каждый студент достигает своих целей и открывает новые горизонты.</p>
-                <a href="courses/index.html" class="btn btn-primary" data-i18n="hero_btn">Запишитесь на первый урок</a>
+                <a href="#courses" class="btn btn-primary" data-i18n="hero_btn">Запишитесь на первый урок</a>
             </div>
             <div class="hero-image">
                 <img src="images/vantage_logo_new.png" alt="Vantage Education" class="floating hero-logo">
@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div style="text-align: center; margin-top: 40px;">
-                <a href="courses/index.html" class="btn btn-primary" data-i18n="view_all_courses">Смотреть все курсы ➔</a>
+                <a href="courses/index.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 14px 28px; border-radius: 50px; background: linear-gradient(135deg, #0ea5e9, #2563eb); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); text-decoration: none; display: inline-block; color: #fff; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 15px 25px rgba(14, 165, 233, 0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 20px rgba(14, 165, 233, 0.3)';" data-i18n="view_all_courses">Смотреть все курсы ➔</a>
             </div>
         </div>
     </section>
@@ -134,7 +134,7 @@
                 </div>
             </div>
             <div style="text-align: center; margin-bottom: 60px;">
-                <a href="courses.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 16px 32px; border-radius: 50px; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); box-shadow: 0 10px 20px rgba(0,0,0,0.2); text-decoration: none; display: inline-block;">Хочу учиться</a>
+                <button class="btn btn-primary openStudyModalBtn" style="font-size: 1.2rem; padding: 16px 32px; border-radius: 50px; background: linear-gradient(135deg, #0ea5e9, #2563eb); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); text-decoration: none; display: inline-block; border: none; cursor: pointer; color: #fff; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 15px 25px rgba(14, 165, 233, 0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 20px rgba(14, 165, 233, 0.3)';">Хочу учиться</button>
             </div>
             
             <div class="features-grid">
@@ -347,7 +347,7 @@
                 <h4 data-i18n="footer_links">Ссылки</h4>
                 <ul>
                     <li><a href="index.html#about" data-i18n="nav_about">О нас</a></li>
-                    <li><a href="courses/index.html" data-i18n="nav_courses">Курсы</a></li>
+                    <li><a href="index.html#courses" data-i18n="nav_courses">Курсы</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -358,9 +358,18 @@
                     <a href="#">Facebook</a>
                 </div>
             </div>
+            <div class="footer-col">
+                <h4>Разработчик</h4>
+                <div class="social-links">
+                    <a href="https://instagram.com/007lazz" target="_blank">Instagram</a>
+                    <a href="https://t.me/aar10" target="_blank">Telegram</a>
+                    <a href="https://wa.me/77029655868" target="_blank">WhatsApp</a>
+                </div>
+            </div>
         </div>
-        <div class="footer-bottom">
+        <div class="footer-bottom" style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
             <p>&copy; 2026 Vantage Education Center. <span data-i18n="footer_rights">Все права защищены.</span></p>
+            <span style="font-size: 0.8rem; color: var(--text-secondary); opacity: 0.7;">By Alavkhanov</span>
         </div>
     </footer>
 
@@ -434,5 +443,12 @@
             box-shadow: 0 0 0 1px var(--accent-primary);
         }
     </style>
+
+    <!-- Floating Telegram Button -->
+    <a href="https://t.me/IMEST5591" target="_blank" class="floating-tg-btn" aria-label="Связаться в Telegram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="28" height="28" fill="white" style="margin-right: 2px; margin-top: 2px;">
+            <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/>
+        </svg>
+    </a>
 </body>
 </html>
